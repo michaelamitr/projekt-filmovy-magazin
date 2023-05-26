@@ -1,0 +1,10 @@
+.movie {
+  display: flex;
+  gap: 1rem;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}

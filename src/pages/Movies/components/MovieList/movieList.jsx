@@ -6,14 +6,15 @@ import {
   Outlet,
 } from 'react-router-dom';
 import movies from '../../../../movie-database';
+import { NavLink } from 'react-router-dom';
 
 export const MovieList = () => {
   return (
     <nav className="movie-list">
       {movies.map((movie) => (
-        <Link to={`/movies/${movie.title}`} key={movie.title}>
+        <NavLink to={`/movies/${movie.id}`} key={movie.id}>
           {movie.title}
-        </Link>
+        </NavLink>
       ))}
     </nav>
   );
