@@ -1,28 +1,59 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Link,
+  Outlet,
+} from 'react-router-dom';
 import './style.css';
+import { Home } from './pages/Home/home';
+import { Articles } from './pages/Articles/articles';
+import { Movies } from './pages/Movies/movies';
+import { Reviews } from './pages/Reviews/reviews';
+import { MovieDetail } from './pages/MoviesDetail/movieDetail';
+import { ErrorPage } from '../../detsky-koutek/src/pages/ErrorPage/errorpage';
+import { Menu } from './components/Menu/menu';
 
 const App = () => {
   return (
     <div className="container">
-      <header>
-        <div className="logo" />
-        <h1>React webová aplikace</h1>
-      </header>
-      <main>
-        <p>
-          Startovací šablona pro webovou aplikaci v Reactu. Vytvořeno pomocí
-          <a href="https://www.npmjs.com/package/create-czechitas-app">create-czechitas-app</a>
-          .
-        </p>
-      </main>
-      <footer>
-        <p>Czechitas, Digitální akademie: Web</p>
-      </footer>
+      <Menu />
+      <Outlet />
     </div>
   );
 };
 
-createRoot(
-  document.querySelector('#app'),
-).render(<App />);
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: 'home',
+        element: <Home />,
+      },
+      {
+        path: 'articles',
+        element: <Articles />,
+      },
+      {
+        path: 'movies',
+        element: <Movies />,
+      },
+      {
+        path: '/movies/:id',
+        element: <MovieDetail />,
+      },
+      {
+        path: 'reviews',
+        element: <Reviews />,
+      },
+    ],
+  },
+]);
+
+createRoot(document.querySelector('#app')).render(
+  <RouterProvider router={router} />,
+);
